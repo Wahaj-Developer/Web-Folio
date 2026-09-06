@@ -6,16 +6,27 @@ import { errorResponse } from '../utils/apiResponse.js';
 const storage = multer.memoryStorage();
 
 // File filter
-const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif|webp|mp4|webm|mov|avi/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedTypes.test(file.mimetype);
+const allowedExtensions = new Set([
+  '.jpeg', '.jpg', '.jfif', '.png', '.gif', '.webp', '.svg', '.bmp', '.tiff', '.tif',
+  '.heic', '.heif', '.avif',
+  '.mp4', '.webm', '.mov', '.avi', '.mkv',
+]);
 
-  if (extname && mimetype) {
+const fileFilter = (req, file, cb) => {
+  const ext = path.extname(file.originalname).toLowerCase();
+  const isImageOrVideoMime = /^image\/|^video\//.test(file.mimetype);
+  const isAllowedExt = allowedExtensions.has(ext);
+
+  // Accept if either the mimetype OR the extension clearly indicates an
+  // image/video. Browsers/OSes are inconsistent about reporting mimetypes
+  // for newer formats (HEIC, AVIF, etc.), so relying on mimetype alone
+  // rejects valid files; relying on extension alone can be spoofed but is
+  // fine here since files go straight to Cloudinary, not executed.
+  if (isImageOrVideoMime || isAllowedExt) {
     return cb(null, true);
-  } else {
-    cb(new Error('Only images and videos are allowed'));
   }
+
+  cb(new Error('Only images and videos are allowed'));
 };
 
 // Create multer upload instance
@@ -41,7 +52,7 @@ export const uploadMultiple = (fieldName, maxCount) => {
 export const handleMulterError = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     if (err.code === 'LIMIT_FILE_SIZE') {
-      return res.status(400).json(errorResponse('File too large. Max size is 50MB'));
+      return res.status(400).json(errorResponse('File too large. Max size is 5MB'));
     }
     return res.status(400).json(errorResponse(err.message));
   }
