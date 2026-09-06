@@ -89,14 +89,14 @@ const About = () => {
               {/* Profile Image */}
               <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full overflow-hidden ring-4 ring-primary/20 dark:ring-primary-dark/20 flex-shrink-0">
                 <img
-                  src="/public/w.png"
+                  src="/w.png"
                   alt="Wahaj Ahmed"
                   className="w-full h-full object-cover"
                   loading="lazy"
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src =
-                      '/public/w.png';
+                      '/w.png';
                   }}
                 />
               </div>

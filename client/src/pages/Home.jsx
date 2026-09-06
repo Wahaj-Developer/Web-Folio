@@ -182,13 +182,13 @@ const Home = () => {
 
                 <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden ring-4 ring-primary/20 dark:ring-primary-dark/20">
                   <img
-                    src="/public/w.png"
+                    src="/w.png"
                     alt="Wahaj Ahmed"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
-                        '/public/w.png';
+                        '/w.png';
                     }}
                   />
                 </div>
@@ -216,13 +216,13 @@ const Home = () => {
             {/* Small Profile */}
             <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden ring-2 ring-primary/20 dark:ring-primary-dark/20 flex-shrink-0">
               <img
-                src="/public/w.png"
+                src="/w.png"
                 alt="Wahaj Ahmed"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
                   e.target.src =
-                    '/public/w.png';
+                    '/w.png';
                 }}
               />
             </div>
