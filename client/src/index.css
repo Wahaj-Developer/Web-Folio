@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white text-text-main dark:bg-dark-bg dark:text-text-main-dark antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  ::selection {
+    @apply bg-primary/30 text-primary-dark dark:bg-primary/40 dark:text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-dark-card;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-dark-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-600;
+  }
+}
+
+@layer components {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .heading-1 {
+    @apply text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight;
+  }
+
+  .heading-2 {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight;
+  }
+
+  .heading-3 {
+    @apply text-2xl sm:text-3xl font-semibold tracking-tight;
+  }
+
+  .heading-4 {
+    @apply text-xl sm:text-2xl font-semibold;
+  }
+
+  .text-body {
+    @apply text-text-muted dark:text-text-muted-dark leading-relaxed;
+  }
+
+  .card {
+    @apply bg-card dark:bg-dark-card border border-border dark:border-dark-border rounded-xl transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-lg hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-dark-hover text-white font-medium rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-dark-card dark:hover:bg-dark-border text-text-main dark:text-text-main-dark font-medium rounded-lg transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-primary dark:border-primary-dark text-primary dark:text-primary-dark hover:bg-primary hover:text-white dark:hover:bg-primary-dark dark:hover:text-white font-medium rounded-lg transition-all duration-200;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply bg-primary-tint text-primary-dark dark:bg-primary-tint-dark dark:text-primary-dark;
+  }
+
+  .badge-zinc {
+    @apply bg-gray-100 text-gray-800 dark:bg-dark-card dark:text-gray-300;
+  }
+
+  .badge-case-study {
+    @apply bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300;
+  }
+}
+
+/* Markdown styles */
+
+.prose {
+  @apply text-gray-800 dark:text-gray-200;
+}
+
+.prose h1 {
+  @apply text-3xl font-bold mt-8 mb-4;
+}
+
+.prose h2 {
+  @apply text-2xl font-semibold mt-8 mb-3;
+}
+
+.prose h3 {
+  @apply text-xl font-semibold mt-6 mb-2;
+}
+
+.prose h4 {
+  @apply text-lg font-semibold mt-4 mb-2;
+}
+
+.prose p {
+  @apply text-gray-700 dark:text-gray-300 leading-relaxed mb-4;
+}
+
+.prose ul,
+.prose ol {
+  @apply mb-4 pl-6;
+}
+
+.prose li {
+  @apply text-gray-700 dark:text-gray-300 leading-relaxed mb-1;
+}
+
+.prose a {
+  @apply text-primary dark:text-primary-dark hover:underline;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary dark:border-primary-dark pl-4 py-1 my-4 bg-gray-50 dark:bg-dark-card rounded-r;
+}
+
+.prose code {
+  @apply bg-gray-100 dark:bg-dark-card px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+.prose pre {
+  @apply bg-gray-900 dark:bg-black p-4 rounded-lg overflow-x-auto my-4;
+}
+
+.prose pre code {
+  @apply bg-transparent text-gray-100 p-0 text-sm;
+}
+
+.prose img {
+  @apply rounded-lg my-4 max-w-full h-auto;
+}
+
+.prose table {
+  @apply w-full border-collapse my-4;
+}
+
+.prose th,
+.prose td {
+  @apply border border-border dark:border-dark-border px-4 py-2 text-left;
+}
+
+.prose th {
+  @apply bg-gray-50 dark:bg-dark-card font-semibold;
+}
+
+.prose .copy-button {
+  @apply absolute top-2 right-2 bg-gray-800 hover:bg-gray-700 text-white text-xs px-3 py-1 rounded transition-colors;
+}
+
+.prose .code-wrapper {
+  @apply relative;
+}
+
