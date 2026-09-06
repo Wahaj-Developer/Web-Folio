@@ -219,7 +219,7 @@ export const updatePost = async (req, res, next) => {
         isCaseStudy: isCaseStudy !== undefined ? isCaseStudy : post.isCaseStudy,
         isDocumentation: isDocumentation !== undefined ? isDocumentation : post.isDocumentation,
         featured: featured !== undefined ? featured : post.featured,
-        relatedProject: relatedProject !== undefined ? relatedProject : post.relatedProject,
+        relatedProject: relatedProject !== undefined ? (relatedProject || null) : post.relatedProject,
         published: published !== undefined ? published : post.published,
       },
       { new: true, runValidators: true }
