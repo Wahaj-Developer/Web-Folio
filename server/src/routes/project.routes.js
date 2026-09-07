@@ -20,6 +20,10 @@ const router = express.Router();
 router.get('/', getProjects);
 // Admin route
 router.get('/admin/all', protect, getAllProjectsAdmin);
+
+
+router.get('/video-upload-signature', protect, getVideoUploadSignature);
+
 // Public route
 router.get('/:id', getProjectById);
 
@@ -29,7 +33,5 @@ router.patch('/:id', protect, validate(projectSchema), updateProject);
 router.delete('/:id', protect, deleteProject);
 router.post('/upload-image', protect, uploadSingle('image'), handleMulterError, uploadProjectImage);
 router.post('/upload-video', protect, uploadSingle('video'), handleMulterError, uploadProjectVideo);
-
-router.get('/video-upload-signature', protect, getVideoUploadSignature);
 
 export default router;
