@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -25,6 +26,30 @@ const ProjectCard = ({ project, index = 0 }) => {
 
   const hasVideo = videoUrl && videoUrl.length > 0;
   const hasImage = image && image.length > 0;
+  const videoRef = useRef(null);
+
+  // React's `muted` JSX attribute only sets the DOM's initial `defaultMuted`
+  // property, not `.muted` itself, so the browser can end up evaluating
+  // autoplay-permission checks before `.muted` is actually true. When that
+  // happens the browser silently blocks autoplay and the <video> just sits
+  // frozen on its first frame forever, with no visible error. Setting
+  // `.muted` imperatively and calling `.play()` ourselves avoids the race.
+  useEffect(() => {
+    if (!hasVideo || !videoRef.current) return;
+
+    const videoEl = videoRef.current;
+    videoEl.muted = true;
+
+    const playPromise = videoEl.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay can still be blocked by the browser/OS in some cases
+        // (e.g. low-power mode, data-saver mode); fail silently rather
+        // than throwing an unhandled rejection. The poster frame stays
+        // visible, which is an acceptable fallback.
+      });
+    }
+  }, [hasVideo, videoUrl]);
 
   return (
     <motion.div
@@ -41,12 +66,13 @@ const ProjectCard = ({ project, index = 0 }) => {
       <div className="relative aspect-video min-h-[180px] sm:min-h-0 bg-gradient-to-br from-primary/15 via-primary-tint to-primary-dark/10 dark:from-primary-dark/15 dark:via-primary-tint-dark dark:to-primary-dark/10 overflow-hidden">
         {hasVideo ? (
           <video
+            ref={videoRef}
             src={videoUrl}
             autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           />
         ) : hasImage ? (
