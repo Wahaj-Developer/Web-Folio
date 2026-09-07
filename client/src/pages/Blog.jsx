@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 
 import SEO from '../components/SEO.jsx';
 import PostCard from '../components/PostCard.jsx';
@@ -25,6 +25,10 @@ const Blog = () => {
 
   const currentPage = parseInt(searchParams.get('page')) || 1;
 
+  // 'case-study' | 'documentation' | null — drives the recruiter/developer
+  // shortcut links from the AudienceRecommendation popup on the home page.
+  const typeFilter = searchParams.get('type');
+
   useEffect(() => {
     const fetchPosts = async () => {
       setIsLoading(true);
@@ -40,6 +44,12 @@ const Blog = () => {
           params.search = searchTerm;
         }
 
+        if (typeFilter === 'case-study') {
+          params.isCaseStudy = true;
+        } else if (typeFilter === 'documentation') {
+          params.isDocumentation = true;
+        }
+
         const response = await postsAPI.getAll(params);
 
         setPosts(response.data.data);
@@ -52,7 +62,7 @@ const Blog = () => {
     };
 
     fetchPosts();
-  }, [currentPage, searchTerm]);
+  }, [currentPage, searchTerm, typeFilter]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -63,8 +73,19 @@ const Blog = () => {
       params.set('search', searchInput.trim());
     }
 
+    if (typeFilter) {
+      params.set('type', typeFilter);
+    }
+
     params.set('page', '1');
 
+    setSearchParams(params);
+  };
+
+  const clearTypeFilter = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete('type');
+    params.set('page', '1');
     setSearchParams(params);
   };
 
@@ -80,6 +101,13 @@ const Blog = () => {
       behavior: 'smooth',
     });
   };
+
+  const typeFilterLabel =
+    typeFilter === 'case-study'
+      ? 'Case Studies'
+      : typeFilter === 'documentation'
+      ? 'Documentation'
+      : null;
 
   return (
     <>
@@ -198,6 +226,24 @@ const Blog = () => {
 
             </div>
 
+            {/* =========================
+                ACTIVE TYPE FILTER
+            ========================== */}
+            {typeFilterLabel && (
+              <div className="flex justify-center mb-6 sm:mb-8">
+                <div className="inline-flex items-center gap-2 pl-3.5 pr-2 py-1.5 rounded-full bg-primary-tint dark:bg-primary-tint-dark text-primary dark:text-primary-dark text-sm font-medium">
+                  <span>Showing: {typeFilterLabel}</span>
+                  <button
+                    type="button"
+                    onClick={clearTypeFilter}
+                    aria-label="Clear filter"
+                    className="flex items-center justify-center w-5 h-5 rounded-full hover:bg-primary/15 dark:hover:bg-primary-dark/20 transition-colors"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
 
             {/* =========================
                 CONTENT
@@ -263,6 +309,8 @@ const Blog = () => {
                   description={
                     searchTerm
                       ? 'No results found for your search.'
+                      : typeFilterLabel
+                      ? `No ${typeFilterLabel.toLowerCase()} published yet.`
                       : 'No posts published yet.'
                   }
                 />

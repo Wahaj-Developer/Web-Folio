@@ -14,6 +14,7 @@ import SEO from '../components/SEO.jsx';
 import SkillsSection from '../components/SkillsSection.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
 import PostCard from '../components/PostCard.jsx';
+import AudienceRecommendation from '../components/AudienceRecommendation.jsx';
 import { projectsAPI, postsAPI } from '../lib/api.js';
 
 const Home = () => {
@@ -56,6 +57,8 @@ const Home = () => {
   return (
     <>
       <SEO title="Home | Dev Portfolio" />
+
+      <AudienceRecommendation />
 
       {/* =====================================================
           HERO
