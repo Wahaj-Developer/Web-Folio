@@ -46,31 +46,10 @@ const AdminPosts = () => {
 
   const handleTogglePublish = async (post) => {
     try {
-      let relatedProjectId = null;
-
-      if (post.relatedProject) {
-        if (
-          typeof post.relatedProject === 'object' &&
-          post.relatedProject._id
-        ) {
-          relatedProjectId = post.relatedProject._id;
-        } else if (typeof post.relatedProject === 'string') {
-          relatedProjectId = post.relatedProject;
-        }
-      }
-
+      // PATCH only the field that is being changed.
+      // The admin posts list does not load content/author, so sending
+      // the whole post caused validation to fail with HTTP 400.
       const updateData = {
-        title: post.title,
-        description: post.description,
-        content: post.content || '',
-        author: post.author,
-        image: post.image || null,
-        category: post.category || '',
-        tags: post.tags || [],
-        isCaseStudy: post.isCaseStudy || false,
-        isDocumentation: post.isDocumentation || false,
-        featured: post.featured || false,
-        relatedProject: relatedProjectId,
         published: !post.published,
       };
 
@@ -89,31 +68,10 @@ const AdminPosts = () => {
 
   const handleToggleFeatured = async (post) => {
     try {
-      let relatedProjectId = null;
-
-      if (post.relatedProject) {
-        if (
-          typeof post.relatedProject === 'object' &&
-          post.relatedProject._id
-        ) {
-          relatedProjectId = post.relatedProject._id;
-        } else if (typeof post.relatedProject === 'string') {
-          relatedProjectId = post.relatedProject;
-        }
-      }
-
+      // PATCH only the field that is being changed.
+      // The admin posts list does not load content/author, so sending
+      // the whole post caused validation to fail with HTTP 400.
       const updateData = {
-        title: post.title,
-        description: post.description,
-        content: post.content || '',
-        author: post.author,
-        image: post.image || null,
-        category: post.category || '',
-        tags: post.tags || [],
-        isCaseStudy: post.isCaseStudy || false,
-        isDocumentation: post.isDocumentation || false,
-        relatedProject: relatedProjectId,
-        published: post.published || false,
         featured: !post.featured,
       };
 
