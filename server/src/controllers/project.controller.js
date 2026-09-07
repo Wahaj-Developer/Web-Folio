@@ -1,324 +1,242 @@
+import Project from '../models/Project.js';
 import Post from '../models/Post.js';
 import { successResponse, errorResponse } from '../utils/apiResponse.js';
-import { generateUniqueSlug } from '../utils/slugify.js';
 import cloudinary from '../config/cloudinary.js';
 
-// Public: Get all published posts
-export const getPosts = async (req, res, next) => {
+// Public: Get all projects
+export const getProjects = async (req, res, next) => {
   try {
-    const {
-      page = 1,
-      limit = 10,
-      search,
-      category,
-      tag,
-      isCaseStudy,
-      isDocumentation,
-      featured,
-    } = req.query;
+    const { featured } = req.query;
 
-    const query = { published: true };
-
-    if (search) {
-      query.$text = { $search: search };
-    }
-
-    if (category) {
-      query.category = category;
-    }
-
-    if (tag) {
-      query.tags = tag;
-    }
-
-    if (isCaseStudy !== undefined) {
-      query.isCaseStudy = isCaseStudy === 'true';
-    }
-
-    if (isDocumentation !== undefined) {
-      query.isDocumentation = isDocumentation === 'true';
-    }
-
+    const query = {};
     if (featured === 'true') {
       query.featured = true;
     }
 
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const total = await Post.countDocuments(query);
+    const projects = await Project.find(query)
+      .sort({ featured: -1, createdAt: -1 });
 
-    const posts = await Post.find(query)
-     .select('title slug description content image category tags publishedAt isCaseStudy isDocumentation')
-      .sort({ featured: -1, publishedAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .populate('relatedProject', 'title slug');
+    // Check if each project has a case study and docs via related posts
+    const projectsWithFlags = await Promise.all(
+      projects.map(async (project) => {
+        let hasCaseStudy = false;
+        let hasDocs = false;
+        let caseStudySlug = null;
+        let docsSlug = null;
 
-    // Calculate reading time for each post
-    const postsWithReadingTime = posts.map(post => {
-      const content = post.content || '';
-      const wordsPerMinute = 200;
-      const words = content.split(/\s+/).length;
-      const readingTime = Math.ceil(words / wordsPerMinute);
-      return {
-        ...post.toObject(),
-        readingTime: readingTime || 1,
-      };
-    });
+        // Find posts linked to this project
+        const linkedPosts = await Post.find({
+          relatedProject: project._id,
+          published: true,
+        });
 
-    res.json(successResponse(
-      postsWithReadingTime,
-      'Posts retrieved successfully',
-      {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        total,
-        pages: Math.ceil(total / parseInt(limit)),
-      }
-    ));
+        // Check for case study and documentation posts
+        const caseStudyPost = linkedPosts.find(p => p.isCaseStudy === true);
+        const docsPost = linkedPosts.find(p => p.isDocumentation === true);
+
+        if (caseStudyPost) {
+          hasCaseStudy = true;
+          caseStudySlug = caseStudyPost.slug;
+        }
+
+        if (docsPost) {
+          hasDocs = true;
+          docsSlug = docsPost.slug;
+        }
+
+        return {
+          ...project.toObject(),
+          hasCaseStudy,
+          hasDocs,
+          caseStudySlug,
+          docsSlug,
+        };
+      })
+    );
+
+    res.json(successResponse(projectsWithFlags, 'Projects retrieved successfully'));
   } catch (error) {
     next(error);
   }
 };
 
-// Public: Get single post by slug
-export const getPostBySlug = async (req, res, next) => {
+// Public: Get single project
+export const getProjectById = async (req, res, next) => {
   try {
-    const { slug } = req.params;
+    const { id } = req.params;
 
-    const post = await Post.findOne({ slug, published: true })
-      .populate('relatedProject', 'title slug description image');
-
-    if (!post) {
-      return res.status(404).json(errorResponse('Post not found'));
+    const project = await Project.findById(id);
+    if (!project) {
+      return res.status(404).json(errorResponse('Project not found'));
     }
 
-    // Calculate reading time
-    const words = post.content.split(/\s+/).length;
-    const readingTime = Math.ceil(words / 200) || 1;
+    let hasCaseStudy = false;
+    let hasDocs = false;
+    let caseStudySlug = null;
+    let docsSlug = null;
 
-    // Get related posts
-    const relatedPosts = await Post.find({
-      _id: { $ne: post._id },
+    // Find posts linked to this project
+    const linkedPosts = await Post.find({
+      relatedProject: project._id,
       published: true,
-      $or: [
-        { category: post.category },
-        { tags: { $in: post.tags } },
-      ],
-    })
-      .select('title slug description image publishedAt')
-      .limit(3)
-      .sort({ publishedAt: -1 });
+    });
 
-    // Get previous and next posts
-    const [prevPost] = await Post.find({
-      published: true,
-      publishedAt: { $lt: post.publishedAt },
-    })
-      .sort({ publishedAt: -1 })
-      .limit(1)
-      .select('title slug');
+    const caseStudyPost = linkedPosts.find(p => p.isCaseStudy === true);
+    const docsPost = linkedPosts.find(p => p.isDocumentation === true);
 
-    const [nextPost] = await Post.find({
-      published: true,
-      publishedAt: { $gt: post.publishedAt },
-    })
-      .sort({ publishedAt: 1 })
-      .limit(1)
-      .select('title slug');
+    if (caseStudyPost) {
+      hasCaseStudy = true;
+      caseStudySlug = caseStudyPost.slug;
+    }
+
+    if (docsPost) {
+      hasDocs = true;
+      docsSlug = docsPost.slug;
+    }
 
     res.json(successResponse({
-      ...post.toObject(),
-      readingTime,
-      relatedPosts,
-      prevPost,
-      nextPost,
-    }, 'Post retrieved successfully'));
+      ...project.toObject(),
+      hasCaseStudy,
+      hasDocs,
+      caseStudySlug,
+      docsSlug,
+    }, 'Project retrieved successfully'));
   } catch (error) {
     next(error);
   }
 };
 
-// Admin: Create post
-export const createPost = async (req, res, next) => {
+// Admin: Create project
+export const createProject = async (req, res, next) => {
   try {
     const { 
       title, 
       description, 
-      content, 
-      author, 
+      techStack, 
       image, 
-      category, 
-      tags, 
-      isCaseStudy,
-      isDocumentation,
-      featured,
-      relatedProject, 
-      published 
+      videoUrl, 
+      liveUrl, 
+      githubUrl, 
+      featured 
     } = req.body;
 
-    const slug = await generateUniqueSlug(Post, title);
-
-    const post = await Post.create({
+    const project = await Project.create({
       title,
-      slug,
       description,
-      content,
-      author,
+      techStack: techStack || [],
       image,
-      category,
-      tags: tags || [],
-      isCaseStudy: isCaseStudy || false,
-      isDocumentation: isDocumentation || false,
+      videoUrl,
+      liveUrl,
+      githubUrl,
       featured: featured || false,
-      relatedProject: relatedProject || null,
-      published: published || false,
     });
 
-    res.status(201).json(successResponse(post, 'Post created successfully'));
+    res.status(201).json(successResponse(project, 'Project created successfully'));
   } catch (error) {
     next(error);
   }
 };
 
-// Admin: Update post
-export const updatePost = async (req, res, next) => {
+// Admin: Update project
+export const updateProject = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { 
       title, 
       description, 
-      content, 
-      author, 
+      techStack, 
       image, 
-      category, 
-      tags, 
-      isCaseStudy,
-      isDocumentation,
-      featured,
-      relatedProject, 
-      published 
+      videoUrl, 
+      liveUrl, 
+      githubUrl, 
+      featured 
     } = req.body;
 
-    const post = await Post.findById(id);
-    if (!post) {
-      return res.status(404).json(errorResponse('Post not found'));
+    const project = await Project.findById(id);
+    if (!project) {
+      return res.status(404).json(errorResponse('Project not found'));
     }
 
-    // Generate new slug if title changed
-    let slug = post.slug;
-    if (title && title !== post.title) {
-      slug = await generateUniqueSlug(Post, title, id);
-    }
-
-    const updatedPost = await Post.findByIdAndUpdate(
+    const updatedProject = await Project.findByIdAndUpdate(
       id,
       {
-        title: title || post.title,
-        slug,
-        description: description || post.description,
-        content: content || post.content,
-        author: author || post.author,
-        image: image !== undefined ? image : post.image,
-        category: category !== undefined ? category : post.category,
-        tags: tags || post.tags,
-        isCaseStudy: isCaseStudy !== undefined ? isCaseStudy : post.isCaseStudy,
-        isDocumentation: isDocumentation !== undefined ? isDocumentation : post.isDocumentation,
-        featured: featured !== undefined ? featured : post.featured,
-        relatedProject: relatedProject !== undefined ? (relatedProject || null) : post.relatedProject,
-        published: published !== undefined ? published : post.published,
+        title: title || project.title,
+        description: description || project.description,
+        techStack: techStack || project.techStack,
+        image: image !== undefined ? image : project.image,
+        videoUrl: videoUrl !== undefined ? videoUrl : project.videoUrl,
+        liveUrl: liveUrl !== undefined ? liveUrl : project.liveUrl,
+        githubUrl: githubUrl !== undefined ? githubUrl : project.githubUrl,
+        featured: featured !== undefined ? featured : project.featured,
       },
       { new: true, runValidators: true }
     );
 
-    res.json(successResponse(updatedPost, 'Post updated successfully'));
+    res.json(successResponse(updatedProject, 'Project updated successfully'));
   } catch (error) {
     next(error);
   }
 };
 
-// Admin: Delete post
-export const deletePost = async (req, res, next) => {
+// Admin: Delete project
+export const deleteProject = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const post = await Post.findById(id);
-    if (!post) {
-      return res.status(404).json(errorResponse('Post not found'));
+    const project = await Project.findById(id);
+    if (!project) {
+      return res.status(404).json(errorResponse('Project not found'));
     }
 
-    await post.deleteOne();
+    await project.deleteOne();
 
-    res.json(successResponse(null, 'Post deleted successfully'));
+    res.json(successResponse(null, 'Project deleted successfully'));
   } catch (error) {
     next(error);
   }
 };
 
-// Admin: Get all posts (including drafts)
-export const getAllPostsAdmin = async (req, res, next) => {
+// Admin: Get all projects (admin)
+export const getAllProjectsAdmin = async (req, res, next) => {
   try {
-    const { page = 1, limit = 10, search } = req.query;
+    const projects = await Project.find().sort({ createdAt: -1 });
 
-    const query = {};
-    if (search) {
-      query.$text = { $search: search };
-    }
+    // Compute flags for admin view
+    const projectsWithFlags = await Promise.all(
+      projects.map(async (project) => {
+        const linkedPosts = await Post.find({
+          relatedProject: project._id,
+          published: true,
+        });
 
-    const skip = (parseInt(page) - 1) * parseInt(limit);
-    const total = await Post.countDocuments(query);
+        const hasCaseStudy = linkedPosts.some(p => p.isCaseStudy === true);
+        const hasDocs = linkedPosts.some(p => p.isDocumentation === true);
 
-    const posts = await Post.find(query)
-      .select('title slug description image category tags published isCaseStudy isDocumentation featured publishedAt')
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(parseInt(limit))
-      .populate('relatedProject', 'title');
+        return {
+          ...project.toObject(),
+          hasCaseStudy,
+          hasDocs,
+        };
+      })
+    );
 
-    res.json(successResponse(
-      posts,
-      'Posts retrieved successfully',
-      {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        total,
-        pages: Math.ceil(total / parseInt(limit)),
-      }
-    ));
+    res.json(successResponse(projectsWithFlags, 'Projects retrieved successfully'));
   } catch (error) {
     next(error);
   }
 };
 
-// Admin: Get single post (including drafts)
-export const getPostByIdAdmin = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const post = await Post.findById(id)
-      .populate('relatedProject', 'title slug');
-
-    if (!post) {
-      return res.status(404).json(errorResponse('Post not found'));
-    }
-
-    res.json(successResponse(post, 'Post retrieved successfully'));
-  } catch (error) {
-    next(error);
-  }
-};
-
-// Admin: Upload post image
-export const uploadPostImage = async (req, res, next) => {
+// Admin: Upload project image
+export const uploadProjectImage = async (req, res, next) => {
   try {
     if (!req.file) {
       return res.status(400).json(errorResponse('No file uploaded'));
     }
 
-    // Upload to Cloudinary
     const result = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
-          folder: 'portfolio/posts',
+          folder: 'portfolio/projects',
           resource_type: 'auto',
         },
         (error, result) => {
@@ -333,6 +251,75 @@ export const uploadPostImage = async (req, res, next) => {
       url: result.secure_url,
       publicId: result.public_id,
     }, 'Image uploaded successfully'));
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Admin: Upload project video
+// NOTE: kept for small videos / local dev. On Vercel this route is a
+// serverless function and the platform enforces a hard 4.5MB request body
+// limit before Express even runs, so any video over that size will fail
+// with a 413 here regardless of multer/express body limits. Use
+// getVideoUploadSignature + direct-to-Cloudinary upload from the client
+// for anything larger (see below).
+export const uploadProjectVideo = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json(errorResponse('No file uploaded'));
+    }
+
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'portfolio/videos',
+          resource_type: 'video',
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      uploadStream.end(req.file.buffer);
+    });
+
+    res.json(successResponse({
+      url: result.secure_url,
+      publicId: result.public_id,
+    }, 'Video uploaded successfully'));
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Admin: Get a signed payload for direct browser -> Cloudinary video upload.
+// This is what lets us bypass Vercel's 4.5MB serverless body limit: the
+// video file itself never passes through our API, only this small JSON
+// signature does. The browser then POSTs the file straight to Cloudinary's
+// upload endpoint using the values returned here.
+export const getVideoUploadSignature = async (req, res, next) => {
+  try {
+    const timestamp = Math.round(Date.now() / 1000);
+    const folder = 'portfolio/videos';
+
+    // Only these params are allowed to affect the signature; anything else
+    // sent by the client at upload time (e.g. resource_type) is not signed
+    // and Cloudinary will accept it as-is, so keep the signed set minimal
+    // and predictable.
+    const paramsToSign = { timestamp, folder };
+
+    const signature = cloudinary.utils.api_sign_request(
+      paramsToSign,
+      process.env.CLOUDINARY_API_SECRET
+    );
+
+    res.json(successResponse({
+      timestamp,
+      signature,
+      folder,
+      apiKey: process.env.CLOUDINARY_API_KEY,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    }, 'Upload signature generated successfully'));
   } catch (error) {
     next(error);
   }

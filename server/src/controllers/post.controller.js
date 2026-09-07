@@ -13,6 +13,7 @@ export const getPosts = async (req, res, next) => {
       category,
       tag,
       isCaseStudy,
+      isDocumentation,
       featured,
     } = req.query;
 
@@ -32,6 +33,10 @@ export const getPosts = async (req, res, next) => {
 
     if (isCaseStudy !== undefined) {
       query.isCaseStudy = isCaseStudy === 'true';
+    }
+
+    if (isDocumentation !== undefined) {
+      query.isDocumentation = isDocumentation === 'true';
     }
 
     if (featured === 'true') {
