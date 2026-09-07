@@ -257,6 +257,12 @@ export const uploadProjectImage = async (req, res, next) => {
 };
 
 // Admin: Upload project video
+// NOTE: kept for small videos / local dev. On Vercel this route is a
+// serverless function and the platform enforces a hard 4.5MB request body
+// limit before Express even runs, so any video over that size will fail
+// with a 413 here regardless of multer/express body limits. Use
+// getVideoUploadSignature + direct-to-Cloudinary upload from the client
+// for anything larger (see below).
 export const uploadProjectVideo = async (req, res, next) => {
   try {
     if (!req.file) {
@@ -281,6 +287,39 @@ export const uploadProjectVideo = async (req, res, next) => {
       url: result.secure_url,
       publicId: result.public_id,
     }, 'Video uploaded successfully'));
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Admin: Get a signed payload for direct browser -> Cloudinary video upload.
+// This is what lets us bypass Vercel's 4.5MB serverless body limit: the
+// video file itself never passes through our API, only this small JSON
+// signature does. The browser then POSTs the file straight to Cloudinary's
+// upload endpoint using the values returned here.
+export const getVideoUploadSignature = async (req, res, next) => {
+  try {
+    const timestamp = Math.round(Date.now() / 1000);
+    const folder = 'portfolio/videos';
+
+    // Only these params are allowed to affect the signature; anything else
+    // sent by the client at upload time (e.g. resource_type) is not signed
+    // and Cloudinary will accept it as-is, so keep the signed set minimal
+    // and predictable.
+    const paramsToSign = { timestamp, folder };
+
+    const signature = cloudinary.utils.api_sign_request(
+      paramsToSign,
+      process.env.CLOUDINARY_API_SECRET
+    );
+
+    res.json(successResponse({
+      timestamp,
+      signature,
+      folder,
+      apiKey: process.env.CLOUDINARY_API_KEY,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    }, 'Upload signature generated successfully'));
   } catch (error) {
     next(error);
   }

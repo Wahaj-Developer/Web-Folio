@@ -8,6 +8,7 @@ import {
   getAllProjectsAdmin,
   uploadProjectImage,
   uploadProjectVideo,
+  getVideoUploadSignature,
 } from '../controllers/project.controller.js';
 import { protect } from '../middlewares/auth.middleware.js';
 import { validate, projectSchema } from '../middlewares/validation.middleware.js';
@@ -28,5 +29,7 @@ router.patch('/:id', protect, validate(projectSchema), updateProject);
 router.delete('/:id', protect, deleteProject);
 router.post('/upload-image', protect, uploadSingle('image'), handleMulterError, uploadProjectImage);
 router.post('/upload-video', protect, uploadSingle('video'), handleMulterError, uploadProjectVideo);
+
+router.get('/video-upload-signature', protect, getVideoUploadSignature);
 
 export default router;

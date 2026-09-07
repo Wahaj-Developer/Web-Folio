@@ -61,10 +61,51 @@ export const projectsAPI = {
     formData.append('image', file);
     return api.post('/projects/upload-image', formData);
   },
+  // Legacy path: routes the file through our own API. Works fine locally,
+  // but on Vercel this endpoint is a serverless function with a hard
+  // 4.5MB request body limit imposed by the platform itself, so larger
+  // videos fail with a 413 (which the browser reports as a CORS error,
+  // since the platform-level rejection happens before our CORS headers
+  // are attached). Kept only for small files / local dev.
   uploadVideo: (file) => {
     const formData = new FormData();
     formData.append('video', file);
     return api.post('/projects/upload-video', formData);
+  },
+  // Direct-to-Cloudinary upload: the video bytes never touch our API, so
+  // Vercel's 4.5MB serverless body limit never applies. Use this one.
+  uploadVideoDirect: async (file, onProgress) => {
+    const { data } = await api.get('/projects/video-upload-signature');
+    const { timestamp, signature, folder, apiKey, cloudName } = data.data;
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('api_key', apiKey);
+    formData.append('timestamp', timestamp);
+    formData.append('signature', signature);
+    formData.append('folder', folder);
+
+    const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
+
+    const response = await axios.post(uploadUrl, formData, {
+      onUploadProgress: (progressEvent) => {
+        if (onProgress && progressEvent.total) {
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          onProgress(percent);
+        }
+      },
+    });
+
+    return {
+      data: {
+        success: true,
+        data: {
+          url: response.data.secure_url,
+          publicId: response.data.public_id,
+        },
+        message: 'Video uploaded successfully',
+      },
+    };
   },
 };
 

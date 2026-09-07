@@ -75,7 +75,10 @@ const NewProject = () => {
     setUploadingVideo(true);
 
     try {
-      const response = await projectsAPI.uploadVideo(file);
+      // Direct-to-Cloudinary upload avoids Vercel's 4.5MB serverless
+      // body limit, which the old projectsAPI.uploadVideo() route hits
+      // for anything but very short clips.
+      const response = await projectsAPI.uploadVideoDirect(file);
 
       setFormData({
         ...formData,
