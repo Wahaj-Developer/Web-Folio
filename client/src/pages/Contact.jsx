@@ -138,7 +138,7 @@ const Contact = () => {
                   {/* Social Links */}
                   <div className="flex items-center gap-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
                     <a
-                      href="https://github.com/YOUR_USERNAME"
+                      href="https://github.com/Wahaj-Developer"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="GitHub"
@@ -148,7 +148,7 @@ const Contact = () => {
                     </a>
 
                     <a
-                      href="https://linkedin.com/in/YOUR_USERNAME"
+                      href="https://www.linkedin.com/in/wahaj-a-212bb633b"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="LinkedIn"
@@ -158,7 +158,7 @@ const Contact = () => {
                     </a>
 
                     <a
-                      href="https://twitter.com/YOUR_USERNAME"
+                      href="https://x.com/WahajAhmed82826"
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Twitter"

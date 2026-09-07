@@ -16,7 +16,7 @@ const Footer = () => {
 
           <div className="flex items-center gap-4">
             <a
-              href="https://github.com"
+              href="https://github.com/Wahaj-Developer"
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark transition-colors"
@@ -26,7 +26,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/wahaj-a-212bb633b"
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark transition-colors"
@@ -36,7 +36,7 @@ const Footer = () => {
             </a>
 
             <a
-              href="https://twitter.com"
+              href="https://x.com/WahajAhmed82826"
               target="_blank"
               rel="noopener noreferrer"
               className="text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark transition-colors"

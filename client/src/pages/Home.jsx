@@ -110,7 +110,7 @@ const Home = () => {
               {/* Social Links */}
               <div className="flex items-center justify-center md:justify-start gap-3 sm:gap-4 pt-1 sm:pt-2 flex-wrap">
                 <a
-                  href="https://github.com/YOUR_USERNAME"
+                  href="https://github.com/Wahaj-Developer"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
@@ -120,7 +120,7 @@ const Home = () => {
                 </a>
 
                 <a
-                  href="https://linkedin.com/in/YOUR_USERNAME"
+                  href="https://www.linkedin.com/in/wahaj-a-212bb633b"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
@@ -130,7 +130,7 @@ const Home = () => {
                 </a>
 
                 <a
-                  href="https://twitter.com/YOUR_USERNAME"
+                  href="https://x.com/WahajAhmed82826"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Twitter"
@@ -140,7 +140,7 @@ const Home = () => {
                 </a>
 
                 <a
-                  href="https://facebook.com/YOUR_USERNAME"
+                  href="https://www.facebook.com/wahaj.khan.820939"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
@@ -150,7 +150,7 @@ const Home = () => {
                 </a>
 
                 <a
-                  href="https://instagram.com/YOUR_USERNAME"
+                  href="https://www.instagram.com/codewithwahaj/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -160,7 +160,7 @@ const Home = () => {
                 </a>
 
                 <a
-                  href="https://fiverr.com/YOUR_USERNAME"
+                  href="https://www.fiverr.com/sellers/wahajakhanahmed/edit?utm_medium=shared&utm_source=copy_link&utm_campaign=seller_profile_self_view&utm_term=DBpjypo"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Fiverr"
