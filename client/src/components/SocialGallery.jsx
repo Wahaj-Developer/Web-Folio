@@ -8,7 +8,7 @@ const socials = [
     name: 'Instagram',
     handle: '@codewithwahaj',
     url: 'https://www.instagram.com/codewithwahaj/',
-    icon: Instagrame,
+    icon: Instagram,
     image: '/w.png',
   },
   {
