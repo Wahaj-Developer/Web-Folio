@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter,Instagrame , ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Twitter,Instagram , ArrowUpRight } from 'lucide-react';
 
 
 const socials = [
  
     {
-    name: 'Instagrame',
+    name: 'Instagram',
     handle: '@codewithwahaj',
     url: 'https://www.instagram.com/codewithwahaj/',
     icon: Instagrame,
