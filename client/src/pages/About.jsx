@@ -11,6 +11,7 @@ import {
 
 import SEO from '../components/SEO.jsx';
 import SkillsSection from '../components/SkillsSection.jsx';
+import SocialGallery from '../components/SocialGallery.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
 import PostCard from '../components/PostCard.jsx';
 import { projectsAPI, postsAPI } from '../lib/api.js';
@@ -217,6 +218,24 @@ const About = () => {
               </h2>
 
               <SkillsSection />
+
+            </div>
+
+
+            {/* =========================
+                CONNECT
+            ========================== */}
+            <div className="space-y-5 sm:space-y-6">
+
+              <h2 className="heading-3 text-center">
+                Let's Connect
+              </h2>
+
+              <p className="text-sm sm:text-base text-text-muted dark:text-text-muted-dark text-center max-w-lg mx-auto">
+                Find me around the web — click through to any profile.
+              </p>
+
+              <SocialGallery />
 
             </div>
 
