@@ -10,6 +10,13 @@ const socials = [
     icon: Github,
     image: '/w.png',
   },
+    {
+    name: 'Twitter / X',
+    handle: '@WahajAhmed82826',
+    url: 'https://x.com/WahajAhmed82826',
+    icon: Twitter,
+    image: '/w.png',
+  },
   {
     name: 'LinkedIn',
     handle: 'Wahaj Ahmed',
@@ -24,6 +31,7 @@ const socials = [
     icon: Twitter,
     image: '/w.png',
   },
+ 
 ];
 
 const SocialGallery = () => {
