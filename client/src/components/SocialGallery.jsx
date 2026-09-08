@@ -1,20 +1,14 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, Twitter,Instagrame , ArrowUpRight } from 'lucide-react';
 
 
 const socials = [
-  {
-    name: 'GitHub',
-    handle: '@Wahaj-Developer',
-    url: 'https://github.com/Wahaj-Developer',
-    icon: Github,
-    image: '/w.png',
-  },
+ 
     {
-    name: 'Twitter / X',
-    handle: '@WahajAhmed82826',
-    url: 'https://x.com/WahajAhmed82826',
-    icon: Twitter,
+    name: 'Instagrame',
+    handle: '@codewithwahaj',
+    url: 'https://www.instagram.com/codewithwahaj/',
+    icon: Instagrame,
     image: '/w.png',
   },
   {

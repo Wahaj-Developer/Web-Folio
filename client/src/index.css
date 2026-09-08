@@ -63,23 +63,23 @@
   }
 
   .card-hover {
-    @apply hover:shadow-lg hover:-translate-y-1;
+    @apply hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/30 hover:-translate-y-1 hover:border-primary/30 dark:hover:border-primary-dark/30;
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-dark-hover text-white font-medium rounded-lg transition-colors duration-200;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-dark-hover text-white font-medium rounded-lg transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-primary-dark/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-dark-card dark:hover:bg-dark-border text-text-main dark:text-text-main-dark font-medium rounded-lg transition-colors duration-200;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-dark-card dark:hover:bg-dark-border text-text-main dark:text-text-main-dark font-medium rounded-lg transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-primary-dark/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-primary dark:border-primary-dark text-primary dark:text-primary-dark hover:bg-primary hover:text-white dark:hover:bg-primary-dark dark:hover:text-white font-medium rounded-lg transition-all duration-200;
+    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-primary dark:border-primary-dark text-primary dark:text-primary-dark hover:bg-primary hover:text-white dark:hover:bg-primary-dark dark:hover:text-white font-medium rounded-lg transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-primary-dark/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
   }
 
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium transition-colors duration-200;
   }
 
   .badge-primary {
@@ -174,4 +174,3 @@
 .prose .code-wrapper {
   @apply relative;
 }
-

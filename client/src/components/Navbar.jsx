@@ -1,6 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu,
   X,
@@ -21,6 +21,7 @@ import { getAuthStatus, logout } from '../lib/auth.js';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { isDark, toggleTheme } = useTheme();
   const location = useLocation();
@@ -38,6 +39,15 @@ const Navbar = () => {
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
+
+  // Give the navbar a subtle elevation once the page has scrolled, so it
+  // reads as "floating" over content instead of blending flatly into it.
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLogout = async () => {
     await logout();
@@ -68,8 +78,7 @@ const Navbar = () => {
   const desktopInactiveStyles =
     'text-text-muted dark:text-text-muted-dark hover:text-text-main dark:hover:text-text-main-dark hover:bg-gray-100 dark:hover:bg-dark-card';
 
-  const desktopActiveStyles =
-    'text-primary dark:text-primary-dark bg-primary-tint dark:bg-primary-tint-dark';
+  const desktopActiveTextStyles = 'text-primary dark:text-primary-dark';
 
   const mobileInactiveStyles =
     'text-text-muted dark:text-text-muted-dark hover:text-text-main dark:hover:text-text-main-dark hover:bg-gray-100 dark:hover:bg-dark-card';
@@ -78,14 +87,20 @@ const Navbar = () => {
     'text-primary dark:text-primary-dark bg-primary-tint dark:bg-primary-tint-dark';
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-border dark:border-dark-border">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b transition-shadow duration-300 ${
+        isScrolled
+          ? 'border-border dark:border-dark-border shadow-sm shadow-black/5 dark:shadow-black/20'
+          : 'border-transparent'
+      }`}
+    >
       <div className="container">
         {/* Main Navbar */}
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-1.5 text-lg sm:text-xl font-bold text-text-main dark:text-text-main-dark shrink-0"
+            className="flex items-center gap-1.5 text-lg sm:text-xl font-bold text-text-main dark:text-text-main-dark shrink-0 transition-transform duration-200 hover:scale-[1.03]"
           >
             <span className="text-primary dark:text-primary-dark">
               Web|
@@ -99,14 +114,21 @@ const Navbar = () => {
               <Link
                 key={to}
                 to={to}
-                className={`${baseLinkStyles} px-3 xl:px-4 py-2 ${
+                className={`${baseLinkStyles} relative px-3 xl:px-4 py-2 ${
                   isActive(to)
-                    ? desktopActiveStyles
+                    ? desktopActiveTextStyles
                     : desktopInactiveStyles
                 }`}
               >
-                <Icon className="w-4 h-4 shrink-0" />
-                <span>{label}</span>
+                {isActive(to) && (
+                  <motion.span
+                    layoutId="navActivePill"
+                    className="absolute inset-0 rounded-lg bg-primary-tint dark:bg-primary-tint-dark"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  />
+                )}
+                <Icon className="w-4 h-4 shrink-0 relative z-10" />
+                <span className="relative z-10">{label}</span>
               </Link>
             ))}
 
@@ -115,14 +137,21 @@ const Navbar = () => {
               <>
                 <Link
                   to="/admin"
-                  className={`${baseLinkStyles} px-3 xl:px-4 py-2 ${
+                  className={`${baseLinkStyles} relative px-3 xl:px-4 py-2 ${
                     location.pathname.startsWith('/admin')
-                      ? desktopActiveStyles
+                      ? desktopActiveTextStyles
                       : desktopInactiveStyles
                   }`}
                 >
-                  <LayoutDashboard className="w-4 h-4 shrink-0" />
-                  <span>Dashboard</span>
+                  {location.pathname.startsWith('/admin') && (
+                    <motion.span
+                      layoutId="navActivePill"
+                      className="absolute inset-0 rounded-lg bg-primary-tint dark:bg-primary-tint-dark"
+                      transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  <LayoutDashboard className="w-4 h-4 shrink-0 relative z-10" />
+                  <span className="relative z-10">Dashboard</span>
                 </Link>
 
                 <button
@@ -181,9 +210,16 @@ const Navbar = () => {
         </div>
 
         {/* Mobile / Tablet Navigation */}
-        {isOpen && (
-          <div className="lg:hidden border-t border-border dark:border-dark-border py-3 sm:py-4 animate-fade-in">
-            <div className="flex flex-col gap-1">
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: 'easeInOut' }}
+              className="lg:hidden border-t border-border dark:border-dark-border overflow-hidden"
+            >
+              <div className="flex flex-col gap-1 py-3 sm:py-4">
               {navLinks.map(({ to, label, icon: Icon }) => (
                 <Link
                   key={to}
@@ -244,9 +280,10 @@ const Navbar = () => {
                   {isDark ? 'Light Mode' : 'Dark Mode'}
                 </span>
               </button>
-            </div>
-          </div>
-        )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
