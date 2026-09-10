@@ -18,7 +18,7 @@ mini-CMS. Browse projects, read Markdown case studies and docs, and
 get in touch — all backed by a protected admin panel where the site
 owner manages everything without touching a database directly.
 
-🔗 **Live Demo:** https://your-demo-url.com
+🔗 **Live Demo:** https://web-folio-tlrw.vercel.app/
 
 📖 **Full technical write-up:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 — file-by-file breakdown, complete API reference, architecture
