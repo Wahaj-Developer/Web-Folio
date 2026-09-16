@@ -109,7 +109,7 @@ const About = () => {
                 </h2>
 
                 <p className="text-sm sm:text-base text-text-muted dark:text-text-muted-dark leading-relaxed">
-                 I'm a Full-Stack MERN Developer passionate about building clean, efficient, and user-friendly web applications. I work with MongoDB, Express.js, React, and Node.js to create complete web solutions, from responsive and interactive frontends to scalable backend APIs and database-driven applications.
+                 I'm a MERN Developer passionate about building clean, efficient, and user-friendly web applications. I work with MongoDB, Express.js, React, and Node.js to create complete web solutions, from responsive and interactive frontends to scalable backend APIs and database-driven applications.
 
                 Alongside development, I have also spent the past 3 months working on my personal brand as a developer, creating short-form content, sharing my learning journey, showcasing projects, and improving how I communicate technical ideas online. This experience has helped me become more confident not only in writing code, but also in presenting my work and connecting with the developer community.
 
@@ -125,7 +125,8 @@ const About = () => {
                     MERN Stack Developer
                   </span>
                    <span className="badge badge-primary">
-                    Full Stack Developer
+                    React JS Developer
+                    
                   </span>
                     <span className="badge badge-primary">
                     JavaScript Developer
@@ -228,11 +229,11 @@ const About = () => {
             <div className="space-y-5 sm:space-y-6">
 
               <h2 className="heading-3 text-center">
-                Let's Connect
+                Behind the Scenes
               </h2>
 
               <p className="text-sm sm:text-base text-text-muted dark:text-text-muted-dark text-center max-w-lg mx-auto">
-                Find me around the web — click through to any profile.
+              A few real moments — late nights, notes, and everything in between.
               </p>
 
               <SocialGallery />

@@ -14,7 +14,6 @@ import SEO from '../components/SEO.jsx';
 import SkillsSection from '../components/SkillsSection.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
 import PostCard from '../components/PostCard.jsx';
-import AudienceRecommendation from '../components/AudienceRecommendation.jsx';
 import { projectsAPI, postsAPI } from '../lib/api.js';
 
 const Home = () => {
@@ -58,7 +57,6 @@ const Home = () => {
     <>
       <SEO title="Home | Dev Portfolio" />
 
-      <AudienceRecommendation />
 
       {/* =====================================================
           HERO
@@ -88,8 +86,8 @@ const Home = () => {
               </div>
 
               <p className="text-base sm:text-lg text-text-muted dark:text-text-muted-dark max-w-lg mx-auto md:mx-0 leading-relaxed">
-                I'm a MERN Stack Developer with a full-stack nature,
-                working across both frontend and backend development.
+                I'm a MERN Stack Developer building web applications with
+                MongoDB, Express, React, and Node.js.
               </p>
 
               {/* CTA Buttons */}
@@ -238,9 +236,9 @@ const Home = () => {
 
               <p className="text-sm sm:text-base text-text-muted dark:text-text-muted-dark max-w-2xl mx-auto md:mx-0 leading-relaxed">
                 My name is Wahaj Ahmed, and I'm a web developer from
-                Pakistan. I'm a MERN Stack Developer with a full-stack
-                approach, working across both frontend and backend
-                development. I enjoy building modern web applications,
+                Pakistan. I'm a MERN Stack Developer working with MongoDB,
+                Express, React, and Node.js. I enjoy building modern
+                web applications,
                 solving problems, and continuously improving my skills.
               </p>
 
