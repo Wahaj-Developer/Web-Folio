@@ -9,7 +9,7 @@ const galleryPhotos = [
   { id: 3, image: '/gallery/editing.png', caption: 'Editing a project demo video', fit: 'cover' },
   { id: 4, image: '/gallery/meme2.png', caption: 'Surviving the tech industry', fit: 'cover' },
   { id: 5, image: '/gallery/notes.jpeg', caption: 'Studying DSA & JS core concepts', fit: 'contain' },
-  { id: 6, image: '/gallery/late.jpeg', caption: 'Late night setup & desk vibe', fit: 'cover' },
+  { id: 6, image: '/gallery/late1.jpeg', caption: 'Late night setup & desk vibe', fit: 'cover' },
 ];
 
 const SocialGallery = () => {
