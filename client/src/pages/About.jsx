@@ -13,7 +13,7 @@ import SEO from '../components/SEO.jsx';
 import SkillsSection from '../components/SkillsSection.jsx';
 import SocialGallery from '../components/SocialGallery.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
-import PostCard from '../components/PostCard.jsx';
+
 import { projectsAPI, postsAPI } from '../lib/api.js';
 
 const About = () => {
@@ -295,60 +295,6 @@ const About = () => {
 
             </div>
 
-
-            {/* =========================
-                FEATURED BLOG
-            ========================== */}
-            <div className="space-y-5 sm:space-y-6">
-
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <h2 className="heading-3">
-                  Featured Blog
-                </h2>
-
-                <Link
-                  to="/blog"
-                  className="text-primary dark:text-primary-dark font-medium hover:underline flex items-center gap-1 self-start sm:self-auto"
-                >
-                  View all
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-
-              {isLoadingPosts ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-                  {[1, 2].map((item) => (
-                    <div
-                      key={item}
-                      className="card animate-pulse overflow-hidden"
-                    >
-                      <div className="aspect-video bg-gray-200 dark:bg-dark-border" />
-
-                      <div className="p-4 sm:p-5 lg:p-6 space-y-3">
-                        <div className="h-5 sm:h-6 w-3/4 bg-gray-200 dark:bg-dark-border rounded" />
-                        <div className="h-4 w-full bg-gray-200 dark:bg-dark-border rounded" />
-                        <div className="h-4 w-2/3 bg-gray-200 dark:bg-dark-border rounded" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : featuredPosts.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-                  {featuredPosts.map((post, index) => (
-                    <PostCard
-                      key={post._id}
-                      post={post}
-                      index={index}
-                    />
-                  ))}
-                </div>
-              ) : (
-                <p className="text-text-muted dark:text-text-muted-dark text-center py-8">
-                  No featured articles yet.
-                </p>
-              )}
-
-            </div>
 
 
             {/* =========================
