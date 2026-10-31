@@ -165,7 +165,7 @@ const Blog = () => {
                       border
                       border-border
                       dark:border-dark-border
-                      bg-white
+                      bg-surface
                       dark:bg-dark-card
                       text-text-main
                       dark:text-text-main-dark

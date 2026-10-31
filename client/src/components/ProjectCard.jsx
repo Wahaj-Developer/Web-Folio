@@ -63,7 +63,7 @@ const ProjectCard = ({ project, index = 0 }) => {
       className="card card-hover overflow-hidden group"
     >
       {/* Media */}
-      <div className="relative aspect-video min-h-[180px] sm:min-h-0 bg-gradient-to-br from-primary/15 via-primary-tint to-primary-dark/10 dark:from-primary-dark/15 dark:via-primary-tint-dark dark:to-primary-dark/10 overflow-hidden">
+      <div className="relative aspect-video min-h-[180px] sm:min-h-0 bg-gradient-to-br from-primary/15 via-beach-100 to-primary-dark/10 dark:from-primary-dark/15 dark:via-primary-tint-dark dark:to-primary-dark/10 overflow-hidden">
         {hasVideo ? (
           <video
             ref={videoRef}
@@ -73,13 +73,13 @@ const ProjectCard = ({ project, index = 0 }) => {
             loop
             playsInline
             preload="auto"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
           />
         ) : hasImage ? (
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
             loading="lazy"
           />
         ) : (
@@ -130,7 +130,7 @@ const ProjectCard = ({ project, index = 0 }) => {
             {techStack.slice(0, 4).map((tech) => (
               <span
                 key={tech}
-                className="px-2 py-1 text-[11px] sm:text-xs font-medium bg-gray-100 dark:bg-dark-card text-gray-600 dark:text-gray-300 border border-transparent dark:border-dark-border rounded-md"
+                className="px-2 py-1 text-[11px] sm:text-xs font-medium bg-beach-100 dark:bg-dark-card text-primary dark:text-beach-200 border border-beach-200 dark:border-dark-border rounded-md"
               >
                 {tech}
               </span>

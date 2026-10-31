@@ -7,13 +7,19 @@
     scroll-behavior: smooth;
   }
 
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+  }
+
   body {
-    @apply bg-white text-text-main dark:bg-dark-bg dark:text-text-main-dark antialiased;
+    @apply bg-surface text-text-main dark:bg-dark-bg dark:text-text-main-dark antialiased;
+    overflow-x: hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 
   ::selection {
-    @apply bg-primary/30 text-primary-dark dark:bg-primary/40 dark:text-white;
+    @apply bg-clr-mist/40 text-clr-slate dark:bg-clr-mist/40 dark:text-clr-pearl;
   }
 
   ::-webkit-scrollbar {
@@ -21,15 +27,15 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100 dark:bg-dark-card;
+    @apply bg-surface dark:bg-dark-bg;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-dark-border rounded-full;
+    @apply bg-gray-400/70 dark:bg-dark-border rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gray-400 dark:bg-gray-600;
+    @apply bg-primary dark:bg-primary-dark;
   }
 }
 
@@ -67,11 +73,28 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-dark-hover text-white font-medium rounded-lg transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-primary-dark/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-clr-burgundy hover:bg-clr-burgundy/90 text-clr-pearl font-medium rounded-lg transition-all duration-200 hover:scale-[1.03] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clr-mist focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden;
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(250, 249, 246, 0.35) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+  }
+
+  .btn-primary:hover::after {
+    transform: translateX(120%);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-gray-100 hover:bg-gray-200 dark:bg-dark-card dark:hover:bg-dark-border text-text-main dark:text-text-main-dark font-medium rounded-lg transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 dark:focus-visible:ring-primary-dark/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-clr-mist text-text-main dark:text-text-main-dark hover:bg-clr-sand dark:hover:text-clr-slate font-medium rounded-lg transition-all duration-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clr-mist focus-visible:ring-offset-2 dark:focus-visible:ring-offset-dark-bg;
   }
 
   .btn-outline {
@@ -83,7 +106,7 @@
   }
 
   .badge-primary {
-    @apply bg-primary-tint text-primary-dark dark:bg-primary-tint-dark dark:text-primary-dark;
+    @apply bg-primary-tint text-primary dark:bg-primary-tint-dark dark:text-primary-dark;
   }
 
   .badge-zinc {
@@ -91,7 +114,7 @@
   }
 
   .badge-case-study {
-    @apply bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300;
+    @apply bg-beach-200 text-primary dark:bg-beach-300/15 dark:text-beach-200;
   }
 }
 
@@ -131,7 +154,7 @@
 }
 
 .prose a {
-  @apply text-primary dark:text-primary-dark hover:underline;
+  @apply text-primary dark:text-clr-mist underline decoration-clr-mist hover:decoration-clr-burgundy dark:hover:text-clr-pearl transition-colors;
 }
 
 .prose blockquote {
@@ -173,4 +196,61 @@
 
 .prose .code-wrapper {
   @apply relative;
+}
+
+/* ---------- Visual layer: grain, blobs, gradient text ---------- */
+
+.dash-ring {
+  border: 2px dashed rgba(110, 20, 35, 0.45);
+}
+
+.dark .dash-ring {
+  border-color: rgba(155, 183, 195, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Page titles: wipe in, then a short burgundy rule draws underneath */
+.heading-1 {
+  position: relative;
+  animation: titleWipe 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.heading-1::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 56px;
+  margin-top: 0.6rem;
+  border-radius: 2px;
+  background: #6E1423;
+  transform-origin: left;
+  animation: ruleDraw 0.8s 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.dark .heading-1::after {
+  background: #9BB7C3;
+}
+
+.text-center > .heading-1::after,
+.text-center.heading-1::after {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@keyframes titleWipe {
+  from { opacity: 0; clip-path: inset(0 100% 0 0); transform: translateY(8px); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); transform: translateY(0); }
+}
+
+@keyframes ruleDraw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
 }

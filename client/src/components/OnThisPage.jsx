@@ -36,7 +36,7 @@ const OnThisPage = ({ content }) => {
             <a
               key={index}
               href={`#${heading.id}`}
-              className={`block text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors ${
+              className={`block text-sm text-zinc-600 dark:text-zinc-400 hover:text-primary dark:hover:text-primary-dark transition-colors ${
                 heading.level === 3 ? 'pl-4' : ''
               } ${heading.level === 4 ? 'pl-8' : ''}`}
               onClick={(e) => {

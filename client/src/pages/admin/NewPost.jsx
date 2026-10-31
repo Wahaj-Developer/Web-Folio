@@ -171,7 +171,7 @@ const NewPost = () => {
                   value={formData.title}
                   onChange={handleChange}
                   required
-                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="Post title"
                 />
               </div>
@@ -193,7 +193,7 @@ const NewPost = () => {
                   required
                   rows={3}
                   maxLength={300}
-                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none"
+                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none"
                   placeholder="Short description (max 300 characters)"
                 />
 
@@ -242,7 +242,7 @@ const NewPost = () => {
                   value={formData.author}
                   onChange={handleChange}
                   required
-                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="Author name"
                 />
               </div>
@@ -259,7 +259,7 @@ const NewPost = () => {
                     name="image"
                     value={formData.image}
                     onChange={handleChange}
-                    className="w-full min-w-0 flex-1 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                    className="w-full min-w-0 flex-1 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                     placeholder="Image URL or /assets/path.jpg"
                   />
 
@@ -316,7 +316,7 @@ const NewPost = () => {
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                  className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                   placeholder="e.g., Development, Design, Case Study"
                 />
               </div>
@@ -338,7 +338,7 @@ const NewPost = () => {
                         handleAddTag();
                       }
                     }}
-                    className="w-full min-w-0 flex-1 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                    className="w-full min-w-0 flex-1 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark placeholder:text-text-muted dark:placeholder:text-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                     placeholder="Add a tag"
                   />
 
@@ -433,7 +433,7 @@ const NewPost = () => {
                       name="relatedProject"
                       value={formData.relatedProject}
                       onChange={handleChange}
-                      className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-white dark:bg-dark-card text-text-main dark:text-text-main-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
+                      className="w-full min-w-0 px-3.5 sm:px-4 py-2.5 rounded-xl border border-border dark:border-dark-border bg-surface dark:bg-dark-card text-text-main dark:text-text-main-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
                     >
                       <option value="">Select a project</option>
 

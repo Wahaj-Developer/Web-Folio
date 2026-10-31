@@ -63,7 +63,7 @@ const AdminProjects = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

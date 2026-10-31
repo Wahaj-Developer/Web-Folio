@@ -70,7 +70,7 @@ const BlogPost = () => {
           <div className="text-center mt-4">
             <Link
               to="/blog"
-              className="inline-flex items-center text-sm text-primary-600 dark:text-primary-400 hover:underline"
+              className="inline-flex items-center text-sm text-primary dark:text-primary-dark hover:underline"
             >
               ← Back to Blog
             </Link>
@@ -189,12 +189,12 @@ const BlogPost = () => {
 
               {/* Related Project */}
               {post.relatedProject && (
-                <div className="card p-4 sm:p-5 bg-primary-50/50 dark:bg-primary-950/30 border-primary-200 dark:border-primary-800">
+                <div className="card p-4 sm:p-5 bg-primary-tint/50 dark:bg-primary-tint-dark/30 border-clr-mist dark:border-primary">
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     Related Project:{' '}
                     <Link
                       to="/projects"
-                      className="text-primary-600 dark:text-primary-400 font-medium hover:underline break-words"
+                      className="text-primary dark:text-primary-dark font-medium hover:underline break-words"
                     >
                       {post.relatedProject.title}
                     </Link>

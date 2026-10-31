@@ -5,11 +5,13 @@ import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import PageWrapper from './components/PageWrapper.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ScrollProgress from './components/ScrollProgress.jsx';
 
 // Pages
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Projects from './pages/Projects.jsx';
+import Services from './pages/Services.jsx';
 import Contact from './pages/Contact.jsx';
 import Blog from './pages/Blog.jsx';
 import BlogPost from './pages/BlogPost.jsx';
@@ -28,8 +30,9 @@ function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col relative">
 
+          <ScrollProgress />
           <Navbar />
 
           <main className="flex-grow pt-16">
@@ -59,6 +62,15 @@ function App() {
                 element={
                   <PageWrapper>
                     <Projects />
+                  </PageWrapper>
+                }
+              />
+
+              <Route
+                path="/services"
+                element={
+                  <PageWrapper>
+                    <Services />
                   </PageWrapper>
                 }
               />

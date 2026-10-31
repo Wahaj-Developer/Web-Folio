@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
   ArrowRight,
   Facebook,
@@ -12,11 +12,53 @@ import {
 
 import SEO from '../components/SEO.jsx';
 import SkillsSection from '../components/SkillsSection.jsx';
+import Marquee from '../components/Marquee.jsx';
+import Magnetic from '../components/Magnetic.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
 import PostCard from '../components/PostCard.jsx';
 import { projectsAPI, postsAPI } from '../lib/api.js';
 
+
+const wordVariants = {
+  hidden: { y: '110%', opacity: 0 },
+  show: (i) => ({
+    y: 0,
+    opacity: 1,
+    transition: { duration: 0.7, delay: 0.15 + i * 0.09, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const Words = ({ text, className = '', start = 0 }) =>
+  text.split(' ').map((w, i) => (
+    <span key={`${w}-${i}`} className="inline-block overflow-hidden align-bottom pb-1 mr-[0.25em]">
+      <motion.span
+        custom={start + i}
+        variants={wordVariants}
+        initial="hidden"
+        animate="show"
+        className={`inline-block ${className}`}
+      >
+        {w}
+      </motion.span>
+    </span>
+  ));
+
 const Home = () => {
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(tiltY, [-0.5, 0.5], [10, -10]), { stiffness: 140, damping: 16 });
+  const rotateY = useSpring(useTransform(tiltX, [-0.5, 0.5], [-10, 10]), { stiffness: 140, damping: 16 });
+
+  const handleTilt = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    tiltX.set((e.clientX - r.left) / r.width - 0.5);
+    tiltY.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const resetTilt = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
+
   const [featuredProjects, setFeaturedProjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -61,8 +103,12 @@ const Home = () => {
       {/* =====================================================
           HERO
       ====================================================== */}
-      <section className="py-10 sm:py-14 md:py-20 lg:py-28">
-        <div className="container">
+      <section className="relative overflow-hidden py-10 sm:py-14 md:py-20 lg:py-28">
+        {/* Floating colour blobs */}
+        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-primary/12 dark:bg-primary/30 blur-3xl animate-float" />
+        <div aria-hidden="true" className="pointer-events-none absolute top-1/3 -right-24 w-[380px] h-[380px] rounded-full bg-beach-300/50 dark:bg-beach-300/15 blur-3xl animate-float-slow" />
+
+        <div className="container relative">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
 
             {/* Hero Content */}
@@ -74,10 +120,9 @@ const Home = () => {
             >
               <div className="space-y-2.5 sm:space-y-3">
                 <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-                  Hi, I'm{' '}
-                  <span className="text-primary dark:text-primary-dark">
-                    Wahaj Ahmed
-                  </span>
+                  <Words text="Hi, I'm" />
+                  <br className="hidden md:block" />
+                  <Words text="Wahaj Ahmed" className="text-primary dark:text-primary-dark" start={2} />
                 </h1>
 
                 <p className="text-lg sm:text-xl md:text-2xl text-text-muted dark:text-text-muted-dark font-medium">
@@ -92,13 +137,15 @@ const Home = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col xs:flex-row items-stretch xs:items-center justify-center md:justify-start gap-3 sm:gap-4">
-                <Link
-                  to="/projects"
-                  className="btn-primary justify-center"
-                >
-                  View Projects
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                <Magnetic>
+                  <Link
+                    to="/projects"
+                    className="btn-primary justify-center group"
+                  >
+                    View Projects
+                    <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </Link>
+                </Magnetic>
 
                 <Link
                   to="/blog"
@@ -115,7 +162,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark transition-colors"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:-translate-y-1 transition-all duration-200"
                 >
                   <Github className="w-5 h-5" />
                 </a>
@@ -125,7 +172,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark transition-colors"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:-translate-y-1 transition-all duration-200"
                 >
                   <Linkedin className="w-5 h-5" />
                 </a>
@@ -135,7 +182,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Twitter"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark transition-colors"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:-translate-y-1 transition-all duration-200"
                 >
                   <Twitter className="w-5 h-5" />
                 </a>
@@ -145,7 +192,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark transition-colors"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:-translate-y-1 transition-all duration-200"
                 >
                   <Facebook className="w-5 h-5" />
                 </a>
@@ -155,7 +202,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark transition-colors"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:-translate-y-1 transition-all duration-200"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>
@@ -165,7 +212,7 @@ const Home = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Fiverr"
-                  className="flex items-center justify-center w-10 h-10 rounded-lg font-bold text-sm text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark transition-colors"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg font-bold text-sm text-text-muted dark:text-text-muted-dark hover:text-primary dark:hover:text-primary-dark hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:-translate-y-1 transition-all duration-200"
                 >
                   Fi
                 </a>
@@ -174,18 +221,27 @@ const Home = () => {
 
             {/* Profile Image */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="flex justify-center mt-2 md:mt-0"
+              style={{ perspective: 900 }}
+              onPointerMove={handleTilt}
+              onPointerLeave={resetTilt}
             >
-              <div className="relative">
+              <motion.div className="relative" style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}>
 
-                <div className="w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden ring-4 ring-primary/20 dark:ring-primary-dark/20">
+                {/* Rotating dashed ring */}
+                <div aria-hidden="true" className="dash-ring absolute -inset-4 sm:-inset-5 rounded-full animate-spin-slow" />
+
+                {/* Sand halo */}
+                <div aria-hidden="true" className="absolute -inset-1 rounded-full bg-gradient-to-br from-primary via-primary-dark to-beach-300 opacity-70 blur-md" />
+
+                <div className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden ring-4 ring-beach-200 dark:ring-dark-border">
                   <img
                     src="/w.png"
                     alt="Wahaj Ahmed"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
@@ -195,21 +251,28 @@ const Home = () => {
                 </div>
 
                 {/* Initial Badge */}
-                <div className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 md:-right-3 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-primary dark:bg-primary-dark rounded-full flex items-center justify-center text-white text-base sm:text-xl md:text-2xl font-bold shadow-lg ring-4 ring-white dark:ring-dark-main">
+                <motion.div
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+                  style={{ translateZ: 40 }}
+                  className="absolute -bottom-1 -right-1 sm:-bottom-2 sm:-right-2 md:-right-3 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-primary dark:bg-primary rounded-full flex items-center justify-center text-beach-100 text-[10px] sm:text-xs md:text-sm font-bold shadow-lg ring-4 ring-surface dark:ring-dark-bg"
+                >
                   Wahaj
-                </div>
+                </motion.div>
 
-              </div>
+              </motion.div>
             </motion.div>
 
           </div>
         </div>
       </section>
 
+      <Marquee />
+
       {/* =====================================================
           ABOUT TEASER
       ====================================================== */}
-      <section className="py-10 sm:py-14 md:py-16 bg-gray-50 dark:bg-dark-card/50">
+      <section className="py-10 sm:py-14 md:py-16 bg-card/70 dark:bg-dark-card/50">
         <div className="container">
 
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8 items-center">
@@ -384,7 +447,7 @@ const Home = () => {
       {/* =====================================================
           SKILLS
       ====================================================== */}
-      <section className="py-10 sm:py-14 md:py-16 bg-gray-50 dark:bg-dark-card/50">
+      <section className="py-10 sm:py-14 md:py-16 bg-card/70 dark:bg-dark-card/50">
         <div className="container">
 
           <h2 className="heading-2 text-center mb-7 sm:mb-8">
@@ -402,7 +465,7 @@ const Home = () => {
       <section className="py-10 sm:py-14 md:py-16">
         <div className="container">
 
-          <div className="card p-5 sm:p-7 md:p-10 lg:p-12 text-center bg-gradient-to-br from-primary/10 to-primary-tint dark:from-primary-dark/10 dark:to-primary-tint-dark border-primary/20 dark:border-primary-dark/20">
+          <motion.div initial={{ opacity: 0, y: 30, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="card relative overflow-hidden p-5 sm:p-7 md:p-10 lg:p-12 text-center bg-gradient-to-br from-beach-100 via-beach-200/60 to-primary/15 dark:from-primary-tint-dark dark:via-dark-card dark:to-primary-dark/15 border-primary/20 dark:border-primary-dark/20">
 
             <h2 className="heading-2 mb-3 sm:mb-4">
               Let's Work Together
@@ -420,7 +483,7 @@ const Home = () => {
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-          </div>
+          </motion.div>
 
         </div>
       </section>

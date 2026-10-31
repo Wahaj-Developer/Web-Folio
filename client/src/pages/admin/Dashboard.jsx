@@ -146,7 +146,7 @@ const Dashboard = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 sm:w-12 sm:h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -164,7 +164,7 @@ const Dashboard = () => {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="min-w-0">
               <h1 className="heading-2 flex items-center gap-2 text-2xl sm:text-3xl">
-                <LayoutDashboard className="w-6 h-6 sm:w-8 sm:h-8 text-primary-500 flex-shrink-0" />
+                <LayoutDashboard className="w-6 h-6 sm:w-8 sm:h-8 text-primary flex-shrink-0" />
                 <span>Dashboard</span>
               </h1>
 
@@ -198,7 +198,7 @@ const Dashboard = () => {
             {/* Posts */}
             <Link
               to="/admin/posts"
-              className="card p-4 sm:p-5 md:p-6 block hover:ring-2 hover:ring-primary-500/40 transition-shadow"
+              className="card p-4 sm:p-5 md:p-6 block hover:ring-2 hover:ring-primary/40 transition-shadow"
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="min-w-0">
@@ -211,7 +211,7 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <FileText className="w-7 h-7 sm:w-8 sm:h-8 text-primary-500/30 flex-shrink-0" />
+                <FileText className="w-7 h-7 sm:w-8 sm:h-8 text-primary/30 flex-shrink-0" />
               </div>
 
               <div className="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs">
@@ -228,7 +228,7 @@ const Dashboard = () => {
             {/* Projects */}
             <Link
               to="/admin/projects"
-              className="card p-4 sm:p-5 md:p-6 block hover:ring-2 hover:ring-primary-500/40 transition-shadow"
+              className="card p-4 sm:p-5 md:p-6 block hover:ring-2 hover:ring-primary/40 transition-shadow"
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="min-w-0">
@@ -241,7 +241,7 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <Briefcase className="w-7 h-7 sm:w-8 sm:h-8 text-primary-500/30 flex-shrink-0" />
+                <Briefcase className="w-7 h-7 sm:w-8 sm:h-8 text-primary/30 flex-shrink-0" />
               </div>
 
               <div className="flex gap-4 mt-3 text-xs">
@@ -264,7 +264,7 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-primary-500/30 flex-shrink-0" />
+                <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-primary/30 flex-shrink-0" />
               </div>
             </div>
           </div>
@@ -278,7 +278,7 @@ const Dashboard = () => {
 
               <Link
                 to="/admin/posts"
-                className="text-xs sm:text-sm text-primary-600 dark:text-primary-400 hover:underline whitespace-nowrap"
+                className="text-xs sm:text-sm text-primary dark:text-primary-dark hover:underline whitespace-nowrap"
               >
                 View all →
               </Link>

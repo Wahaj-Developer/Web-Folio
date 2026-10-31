@@ -20,43 +20,98 @@ export default {
     },
     extend: {
       colors: {
-        // Brand
-        primary: '#D70F64',
-        'primary-hover': '#B00C52',
+        // Design system tokens: Grey Beach & Burgundy
+        'clr-slate': '#2F363F',
+        'clr-burgundy': '#6E1423',
+        'clr-sand': '#F4EFEA',
+        'clr-mist': '#9BB7C3',
+        'clr-pearl': '#FAF9F6',
 
-        'primary-dark': '#FF2B7A',
-        'primary-dark-hover': '#E01563',
+        // Brand: burgundy (buttons) / ocean mist (links on dark)
+        primary: '#6E1423',
+        'primary-hover': '#5A101D',
+        'primary-dark': '#9BB7C3',
+        'primary-dark-hover': '#B4CAD3',
 
-        // Brand tints
-        'primary-tint': '#FFF0F5',
-        'primary-tint-dark': '#2D121E',
+        // Tints
+        'primary-tint': '#F4EFEA',
+        'primary-tint-dark': 'rgba(155,183,195,0.14)',
 
-        // Light mode
-        card: '#F9FAFB',
-        border: '#E5E7EB',
+        // Sand / mist helper scale (kept under the old "beach" name)
+        beach: {
+          50: '#FAF9F6',
+          100: '#F4EFEA',
+          200: 'rgba(155,183,195,0.35)',
+          300: '#9BB7C3',
+          400: '#9BB7C3',
+        },
 
-        'text-main': '#1F2937',
-        'text-muted': '#6B7280',
+        // Light mode (Coastal Premium)
+        surface: '#FAF9F6',
+        card: '#F4EFEA',
+        border: 'rgba(155,183,195,0.35)',
+        'text-main': '#2F363F',
+        'text-muted': 'rgba(47,54,63,0.72)',
 
-        // Dark mode
-        'dark-bg': '#0D0B0D',
-        'dark-card': '#171217',
-        'dark-border': '#30252B',
+        // Dark mode (Dusk & Dune)
+        'dark-bg': '#2F363F',
+        'dark-card': 'rgba(250,249,246,0.05)',
+        'dark-border': 'rgba(155,183,195,0.28)',
+        'text-main-dark': '#FAF9F6',
+        'text-muted-dark': 'rgba(250,249,246,0.7)',
 
-        'text-main-dark': '#F8FAFC',
-        'text-muted-dark': '#A8A0A5',
+        // Neutral scales re-derived from pearl -> slate so nothing leaves the palette
+        gray: {
+          50: '#FAF9F6',
+          100: '#F4EFEA',
+          200: '#E6E6E4',
+          300: '#D1D2D1',
+          400: '#ADAFB0',
+          500: '#8A8E91',
+          600: '#6C7076',
+          700: '#545960',
+          800: '#3F464E',
+          900: '#353C44',
+          950: '#2F363F',
+        },
+        zinc: {
+          50: '#FAF9F6',
+          100: '#F4EFEA',
+          200: '#E6E6E4',
+          300: '#D1D2D1',
+          400: '#ADAFB0',
+          500: '#8A8E91',
+          600: '#6C7076',
+          700: '#545960',
+          800: '#3F464E',
+          900: '#353C44',
+          950: '#2F363F',
+        },
       },
 
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
       },
 
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.6s ease-out',
+        float: 'float 9s ease-in-out infinite',
+        'float-slow': 'float 14s ease-in-out infinite reverse',
+        marquee: 'marquee 38s linear infinite',
+        'spin-slow': 'spin 22s linear infinite',
       },
 
       keyframes: {
+        float: {
+          '0%,100%': { transform: 'translate3d(0,0,0) scale(1)' },
+          '50%': { transform: 'translate3d(30px,-40px,0) scale(1.08)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
         fadeIn: {
           '0%': {
             opacity: '0',

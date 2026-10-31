@@ -66,7 +66,7 @@ const SkillCategory = ({ title, items, delay = 0 }) => (
       {items.map((skill) => (
         <span
           key={skill}
-          className="px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium bg-gray-100 dark:bg-dark-card text-gray-700 dark:text-gray-300 border border-transparent dark:border-dark-border hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:text-primary dark:hover:text-primary-dark hover:border-primary/20 dark:hover:border-primary-dark/20 rounded-lg transition-all duration-200 cursor-default"
+          className="px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-medium bg-card dark:bg-dark-card text-gray-700 dark:text-gray-300 border border-border dark:border-dark-border hover:-translate-y-0.5 hover:bg-primary-tint dark:hover:bg-primary-tint-dark hover:text-primary dark:hover:text-primary-dark hover:border-primary/20 dark:hover:border-primary-dark/20 rounded-lg transition-all duration-200 cursor-default"
         >
           {skill}
         </span>

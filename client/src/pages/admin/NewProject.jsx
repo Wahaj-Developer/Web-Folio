@@ -166,7 +166,7 @@ const NewProject = () => {
                 value={formData.title}
                 onChange={handleChange}
                 required
-                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                 placeholder="Project title"
               />
             </div>
@@ -187,7 +187,7 @@ const NewProject = () => {
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors resize-y"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors resize-y"
                 placeholder="Short project description"
               />
             </div>
@@ -204,7 +204,7 @@ const NewProject = () => {
                   name="image"
                   value={formData.image}
                   onChange={handleChange}
-                  className="w-full min-w-0 flex-1 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                  className="w-full min-w-0 flex-1 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                   placeholder="Image URL or /assets/path.jpg"
                 />
 
@@ -258,7 +258,7 @@ const NewProject = () => {
                   name="videoUrl"
                   value={formData.videoUrl}
                   onChange={handleChange}
-                  className="w-full min-w-0 flex-1 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                  className="w-full min-w-0 flex-1 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                   placeholder="Video URL"
                 />
 
@@ -299,7 +299,7 @@ const NewProject = () => {
                 name="liveUrl"
                 value={formData.liveUrl}
                 onChange={handleChange}
-                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                 placeholder="https://example.com"
               />
             </div>
@@ -319,7 +319,7 @@ const NewProject = () => {
                 name="githubUrl"
                 value={formData.githubUrl}
                 onChange={handleChange}
-                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                className="w-full min-w-0 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                 placeholder="https://github.com/username/repo"
               />
             </div>
@@ -341,7 +341,7 @@ const NewProject = () => {
                       handleAddTech();
                     }
                   }}
-                  className="w-full min-w-0 flex-1 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                  className="w-full min-w-0 flex-1 px-3 sm:px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                   placeholder="Add a technology"
                 />
 
@@ -359,7 +359,7 @@ const NewProject = () => {
                   {techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs sm:text-sm bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-300 rounded-md max-w-full"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 text-xs sm:text-sm bg-primary-tint dark:bg-primary-tint-dark/30 text-primary dark:text-primary-dark rounded-md max-w-full"
                     >
                       <span className="truncate max-w-[180px]">
                         {tech}
@@ -388,7 +388,7 @@ const NewProject = () => {
                   name="featured"
                   checked={formData.featured}
                   onChange={handleChange}
-                  className="mt-0.5 w-4 h-4 flex-shrink-0 rounded border-zinc-300 dark:border-zinc-700 text-primary-600 focus:ring-primary-500"
+                  className="mt-0.5 w-4 h-4 flex-shrink-0 rounded border-zinc-300 dark:border-zinc-700 text-primary focus:ring-clr-mist"
                 />
 
                 <span className="text-sm font-medium leading-5">

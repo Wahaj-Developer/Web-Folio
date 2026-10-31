@@ -103,7 +103,7 @@ const Contact = () => {
                   <div className="space-y-4">
                     {/* Email */}
                     <div className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400">
-                      <Mail className="w-4 h-4 mt-0.5 text-primary-500 flex-shrink-0" />
+                      <Mail className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
 
                       <a
                         href="mailto:wahajmuhammed202@gmail.com"
@@ -115,7 +115,7 @@ const Contact = () => {
 
                     {/* Location */}
                     <div className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400">
-                      <MapPin className="w-4 h-4 mt-0.5 text-primary-500 flex-shrink-0" />
+                      <MapPin className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
 
                       <span>
                         Pakistan, Islamabad, Jhelum 📍
@@ -124,7 +124,7 @@ const Contact = () => {
 
                     {/* Phone */}
                     <div className="flex items-start gap-3 text-sm text-zinc-600 dark:text-zinc-400">
-                      <Phone className="w-4 h-4 mt-0.5 text-primary-500 flex-shrink-0" />
+                      <Phone className="w-4 h-4 mt-0.5 text-primary flex-shrink-0" />
 
                       <a
                         href="tel:+92 3193631230"
@@ -205,7 +205,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       autoComplete="name"
-                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                       placeholder="Your name"
                     />
                   </div>
@@ -227,7 +227,7 @@ const Contact = () => {
                       onChange={handleChange}
                       required
                       autoComplete="email"
-                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -246,7 +246,7 @@ const Contact = () => {
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                     >
                       <option value="">What's this about?</option>
                       <option value="Project Inquiry">Project Inquiry</option>
@@ -274,7 +274,7 @@ const Contact = () => {
                       required
                       rows={5}
                       maxLength={MESSAGE_MAX_LENGTH}
-                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors resize-y min-h-[140px]"
+                      className="w-full min-w-0 px-4 py-2.5 sm:py-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors resize-y min-h-[140px]"
                       placeholder="Tell me about your project..."
                     />
 

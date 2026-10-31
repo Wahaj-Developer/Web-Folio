@@ -11,6 +11,7 @@ import {
   Briefcase,
   Mail,
   BookOpen,
+  Layers,
   LayoutDashboard,
   LogOut,
 } from 'lucide-react';
@@ -60,6 +61,7 @@ const Navbar = () => {
     { to: '/', label: 'Home', icon: Home },
     { to: '/about', label: 'About', icon: User },
     { to: '/projects', label: 'Projects', icon: Briefcase },
+    { to: '/services', label: 'Services', icon: Layers },
     { to: '/blog', label: 'Blog', icon: BookOpen },
     { to: '/contact', label: 'Contact', icon: Mail },
   ];
@@ -76,19 +78,22 @@ const Navbar = () => {
     'flex items-center gap-2 rounded-lg text-sm font-medium transition-all duration-200';
 
   const desktopInactiveStyles =
-    'text-text-muted dark:text-text-muted-dark hover:text-text-main dark:hover:text-text-main-dark hover:bg-gray-100 dark:hover:bg-dark-card';
+    'text-text-muted dark:text-text-muted-dark hover:text-text-main dark:hover:text-text-main-dark hover:bg-beach-100 dark:hover:bg-dark-card';
 
   const desktopActiveTextStyles = 'text-primary dark:text-primary-dark';
 
   const mobileInactiveStyles =
-    'text-text-muted dark:text-text-muted-dark hover:text-text-main dark:hover:text-text-main-dark hover:bg-gray-100 dark:hover:bg-dark-card';
+    'text-text-muted dark:text-text-muted-dark hover:text-text-main dark:hover:text-text-main-dark hover:bg-beach-100 dark:hover:bg-dark-card';
 
   const mobileActiveStyles =
     'text-primary dark:text-primary-dark bg-primary-tint dark:bg-primary-tint-dark';
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b transition-shadow duration-300 ${
+    <motion.nav
+      initial={{ y: -70, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 bg-surface/80 dark:bg-dark-bg/80 backdrop-blur-xl border-b transition-shadow duration-300 ${
         isScrolled
           ? 'border-border dark:border-dark-border shadow-sm shadow-black/5 dark:shadow-black/20'
           : 'border-transparent'
@@ -106,6 +111,7 @@ const Navbar = () => {
               Web|
             </span>
             <span>|Folio</span>
+            <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-beach-300 animate-pulse" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -285,7 +291,7 @@ const Navbar = () => {
           )}
         </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

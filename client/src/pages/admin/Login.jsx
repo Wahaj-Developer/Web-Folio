@@ -60,8 +60,8 @@ const Login = () => {
       >
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-primary-100 dark:bg-primary-900/30 rounded-xl sm:rounded-2xl mb-3 sm:mb-4">
-            <LogIn className="w-7 h-7 sm:w-8 sm:h-8 text-primary-600 dark:text-primary-400" />
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-primary-tint dark:bg-primary-tint-dark/30 rounded-xl sm:rounded-2xl mb-3 sm:mb-4">
+            <LogIn className="w-7 h-7 sm:w-8 sm:h-8 text-primary dark:text-primary-dark" />
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
@@ -98,7 +98,7 @@ const Login = () => {
                   onChange={handleChange}
                   required
                   autoComplete="email"
-                  className="w-full min-h-11 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                  className="w-full min-h-11 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                   placeholder="admin@example.com"
                 />
               </div>
@@ -126,7 +126,7 @@ const Login = () => {
                   onChange={handleChange}
                   required
                   autoComplete="current-password"
-                  className="w-full min-h-11 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+                  className="w-full min-h-11 pl-10 pr-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-surface dark:bg-zinc-900 text-zinc-900 dark:text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-clr-mist transition-colors"
                   placeholder="••••••••"
                 />
               </div>
