@@ -109,7 +109,7 @@ const SocialGallery = () => {
             type="button"
             onClick={() => scrollToIndex(activeIndex - 1)}
             aria-label="Previous photo"
-            className="absolute left-1 top-[38%] -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-surface/90 dark:bg-dark-card/90 shadow-md text-primary dark:text-primary-dark disabled:opacity-30"
+            className="absolute left-1 top-[38%] -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-surface/90 dark:bg-dark-bg/90 shadow-md text-primary dark:text-primary-dark disabled:opacity-30"
             disabled={activeIndex === 0}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -119,7 +119,7 @@ const SocialGallery = () => {
             type="button"
             onClick={() => scrollToIndex(activeIndex + 1)}
             aria-label="Next photo"
-            className="absolute right-1 top-[38%] -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-surface/90 dark:bg-dark-card/90 shadow-md text-primary dark:text-primary-dark disabled:opacity-30"
+            className="absolute right-1 top-[38%] -translate-y-1/2 flex items-center justify-center w-8 h-8 rounded-full bg-surface/90 dark:bg-dark-bg/90 shadow-md text-primary dark:text-primary-dark disabled:opacity-30"
             disabled={activeIndex === galleryPhotos.length - 1}
           >
             <ChevronRight className="w-4 h-4" />

@@ -105,8 +105,8 @@ const Home = () => {
       ====================================================== */}
       <section className="relative overflow-hidden py-10 sm:py-14 md:py-20 lg:py-28">
         {/* Floating colour blobs */}
-        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-primary/12 dark:bg-primary/30 blur-3xl animate-float" />
-        <div aria-hidden="true" className="pointer-events-none absolute top-1/3 -right-24 w-[380px] h-[380px] rounded-full bg-beach-300/50 dark:bg-beach-300/15 blur-3xl animate-float-slow" />
+        <div aria-hidden="true" className="pointer-events-none absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-primary/12 dark:bg-primary/30 blur-3xl sm:animate-float" />
+        <div aria-hidden="true" className="pointer-events-none absolute top-1/3 -right-24 w-[380px] h-[380px] rounded-full bg-beach-300/50 dark:bg-beach-300/15 blur-3xl sm:animate-float-slow" />
 
         <div className="container relative">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
@@ -239,13 +239,16 @@ const Home = () => {
 
                 <div className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden ring-4 ring-beach-200 dark:ring-dark-border">
                   <img
-                    src="/w.png"
+                    src="/w.webp"
                     alt="Wahaj Ahmed"
+                    width="640"
+                    height="640"
+                    decoding="async"
+                    fetchpriority="high"
                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                     onError={(e) => {
                       e.target.onerror = null;
-                      e.target.src =
-                        '/w.png';
+                      e.target.src = '/w.png';
                     }}
                   />
                 </div>
@@ -272,21 +275,24 @@ const Home = () => {
       {/* =====================================================
           ABOUT TEASER
       ====================================================== */}
-      <section className="py-10 sm:py-14 md:py-16 bg-card/70 dark:bg-dark-card/50">
+      <section className="py-10 sm:py-14 md:py-16 bg-card/70 dark:bg-dark-card">
         <div className="container">
 
           <div className="flex flex-col md:flex-row gap-6 sm:gap-8 items-center">
 
             {/* Small Profile */}
-            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full overflow-hidden ring-2 ring-primary/20 dark:ring-primary-dark/20 flex-shrink-0">
+            <div className="hidden lg:block w-32 h-32 rounded-full overflow-hidden ring-2 ring-primary/20 dark:ring-primary-dark/20 flex-shrink-0">
               <img
-                src="/w.png"
+                src="/w-sm.webp"
                 alt="Wahaj Ahmed"
+                width="256"
+                height="256"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src =
-                    '/w.png';
+                  e.target.src = '/w.png';
                 }}
               />
             </div>
@@ -309,7 +315,7 @@ const Home = () => {
                 to="/about"
                 className="inline-flex items-center gap-2 mt-4 text-primary dark:text-primary-dark font-medium hover:underline"
               >
-                Learn more
+                Learn more about me
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -333,7 +339,7 @@ const Home = () => {
               to="/projects"
               className="text-primary dark:text-primary-dark font-medium hover:underline flex items-center gap-1 self-start sm:self-auto"
             >
-              View all
+              View all projects
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -396,7 +402,7 @@ const Home = () => {
               to="/blog"
               className="text-primary dark:text-primary-dark font-medium hover:underline flex items-center gap-1 self-start sm:self-auto"
             >
-              View all
+              View all posts
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -447,7 +453,7 @@ const Home = () => {
       {/* =====================================================
           SKILLS
       ====================================================== */}
-      <section className="py-10 sm:py-14 md:py-16 bg-card/70 dark:bg-dark-card/50">
+      <section className="py-10 sm:py-14 md:py-16 bg-card/70 dark:bg-dark-card">
         <div className="container">
 
           <h2 className="heading-2 text-center mb-7 sm:mb-8">
@@ -465,7 +471,7 @@ const Home = () => {
       <section className="py-10 sm:py-14 md:py-16">
         <div className="container">
 
-          <motion.div initial={{ opacity: 0, y: 30, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="card relative overflow-hidden p-5 sm:p-7 md:p-10 lg:p-12 text-center bg-gradient-to-br from-beach-100 via-beach-200/60 to-primary/15 dark:from-primary-tint-dark dark:via-dark-card dark:to-primary-dark/15 border-primary/20 dark:border-primary-dark/20">
+          <motion.div initial={{ opacity: 0, y: 30, scale: 0.97 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="card relative overflow-hidden p-5 sm:p-7 md:p-10 lg:p-12 text-center bg-gradient-to-br from-beach-100 via-clr-mist/30 to-primary/15 dark:from-primary-tint-dark dark:via-dark-card dark:to-primary-dark/15 border-primary/20 dark:border-primary-dark/20">
 
             <h2 className="heading-2 mb-3 sm:mb-4">
               Let's Work Together

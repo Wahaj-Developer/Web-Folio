@@ -11,6 +11,7 @@ import {
 
 import SEO from '../components/SEO.jsx';
 import Magnetic from '../components/Magnetic.jsx';
+import SkillsSection from '../components/SkillsSection.jsx';
 
 /* ---------------------------------------------------------------
    EDIT HERE. Add, remove or re-order services, and set honest
@@ -205,8 +206,19 @@ const Services = () => (
       </div>
     </section>
 
+    {/* Skills */}
+    <section className="pb-14 sm:pb-20">
+      <div className="container">
+        <h2 className="heading-2 text-center mb-2">Tools I work with</h2>
+        <p className="text-body text-center mb-8 sm:mb-10">
+          The stack behind every service above.
+        </p>
+        <SkillsSection />
+      </div>
+    </section>
+
     {/* How I work */}
-    <section className="py-12 sm:py-16 bg-card/70 dark:bg-dark-card/50">
+    <section className="py-12 sm:py-16 bg-card/70 dark:bg-dark-card">
       <div className="container">
         <h2 className="heading-2 mb-8">How we would work together</h2>
         <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

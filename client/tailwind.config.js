@@ -1,4 +1,3 @@
-
 /** @type {import('tailwindcss').Config} */
 
 export default {
@@ -51,14 +50,14 @@ export default {
         card: '#F4EFEA',
         border: 'rgba(155,183,195,0.35)',
         'text-main': '#2F363F',
-        'text-muted': 'rgba(47,54,63,0.72)',
+        'text-muted': 'rgba(47,54,63,0.82)',
 
         // Dark mode (Dusk & Dune)
         'dark-bg': '#2F363F',
         'dark-card': 'rgba(250,249,246,0.05)',
         'dark-border': 'rgba(155,183,195,0.28)',
         'text-main-dark': '#FAF9F6',
-        'text-muted-dark': 'rgba(250,249,246,0.7)',
+        'text-muted-dark': 'rgba(250,249,246,0.78)',
 
         // Neutral scales re-derived from pearl -> slate so nothing leaves the palette
         gray: {
@@ -100,10 +99,15 @@ export default {
         float: 'float 9s ease-in-out infinite',
         'float-slow': 'float 14s ease-in-out infinite reverse',
         marquee: 'marquee 38s linear infinite',
+        bob: 'bob 7s ease-in-out infinite',
         'spin-slow': 'spin 22s linear infinite',
       },
 
       keyframes: {
+        bob: {
+          '0%,100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
         float: {
           '0%,100%': { transform: 'translate3d(0,0,0) scale(1)' },
           '50%': { transform: 'translate3d(30px,-40px,0) scale(1.08)' },
