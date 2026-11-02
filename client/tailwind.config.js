@@ -101,9 +101,30 @@ export default {
         marquee: 'marquee 38s linear infinite',
         bob: 'bob 7s ease-in-out infinite',
         'spin-slow': 'spin 22s linear infinite',
+        orbit: 'orbit 26s linear infinite',
+        'orbit-reverse': 'orbit 26s linear infinite reverse',
+        shimmer: 'shimmer 5s linear infinite',
+        ripple: 'ripple 4.5s ease-out infinite',
+        drift: 'drift 10s ease-in-out infinite',
       },
 
       keyframes: {
+        orbit: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '0% center' },
+          '100%': { backgroundPosition: '200% center' },
+        },
+        ripple: {
+          '0%': { transform: 'scale(1)', opacity: '0.55' },
+          '100%': { transform: 'scale(1.55)', opacity: '0' },
+        },
+        drift: {
+          '0%,100%': { transform: 'translate3d(0,0,0) rotate(-6deg)', opacity: '0.5' },
+          '50%': { transform: 'translate3d(10px,-22px,0) rotate(8deg)', opacity: '1' },
+        },
         bob: {
           '0%,100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },

@@ -7,10 +7,12 @@ import {
   Sparkles,
   Clapperboard,
   Rocket,
+  Server,
 } from 'lucide-react';
 
 import SEO from '../components/SEO.jsx';
 import Magnetic from '../components/Magnetic.jsx';
+import MobileCarousel from '../components/MobileCarousel.jsx';
 import SkillsSection from '../components/SkillsSection.jsx';
 
 /* ---------------------------------------------------------------
@@ -57,6 +59,14 @@ const services = [
     stack: ['React', 'Node.js', 'ImageKit', 'MongoDB'],
     level: 3,
     proof: 'Food View',
+  },
+  {
+    icon: Server,
+    title: 'REST APIs & Backend Services',
+    goodFor: 'Secure backends with logins, a database and clean endpoints.',
+    stack: ['Node.js', 'Express', 'MongoDB', 'JWT', 'REST APIs'],
+    level: 4,
+    proof: 'Interview Copilot, Food View',
   },
   {
     icon: Rocket,
@@ -187,18 +197,19 @@ const Services = () => (
     {/* Grid */}
     <section className="pb-12 sm:pb-16">
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5 sm:gap-6">
+        <MobileCarousel
+          label="Services"
+          gridClassName="md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-6"
+          itemClassName={(i) =>
+            `lg:col-span-2 ${
+              services.length % 3 === 2 && i === services.length - 2 ? 'lg:col-start-2' : ''
+            }`
+          }
+        >
           {services.map((s, i) => (
-            <div
-              key={s.title}
-              className={`lg:col-span-2 flex ${
-                services.length % 3 === 2 && i === services.length - 2 ? 'lg:col-start-2' : ''
-              }`}
-            >
-              <ServiceCard service={s} index={i} />
-            </div>
+            <ServiceCard key={s.title} service={s} index={i} />
           ))}
-        </div>
+        </MobileCarousel>
 
         <p className="mt-6 text-xs sm:text-sm text-text-muted dark:text-text-muted-dark">
           Capability runs from 1 (still learning) to 5 (core strength).

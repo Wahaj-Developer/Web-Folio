@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 import SEO from '../components/SEO.jsx';
 import ProjectCard from '../components/ProjectCard.jsx';
+import MobileCarousel from '../components/MobileCarousel.jsx';
 import ProjectSkeleton from '../components/ui/ProjectSkeleton.jsx';
 import EmptyState from '../components/ui/EmptyState.jsx';
 import ErrorState from '../components/ui/ErrorState.jsx';
@@ -49,11 +50,11 @@ const Projects = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+            <MobileCarousel label="Loading projects" gridClassName="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-6">
               {[...Array(3)].map((_, i) => (
                 <ProjectSkeleton key={i} />
               ))}
-            </div>
+            </MobileCarousel>
           </div>
         </section>
       </>
@@ -118,7 +119,7 @@ const Projects = () => {
             ========================== */}
             {projects.length > 0 ? (
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+              <MobileCarousel label="Projects" gridClassName="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-6">
 
                 {projects.map((project, index) => (
                   <ProjectCard
@@ -128,7 +129,7 @@ const Projects = () => {
                   />
                 ))}
 
-              </div>
+              </MobileCarousel>
 
             ) : (
 

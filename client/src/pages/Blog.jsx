@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Search, X } from 'lucide-react';
 
 import SEO from '../components/SEO.jsx';
+import MobileCarousel from '../components/MobileCarousel.jsx';
 import PostCard from '../components/PostCard.jsx';
 import PostSkeleton from '../components/ui/PostSkeleton.jsx';
 import Pagination from '../components/Pagination.jsx';
@@ -250,13 +251,13 @@ const Blog = () => {
             ========================== */}
             {isLoading ? (
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+              <MobileCarousel label="Loading posts" gridClassName="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-6">
 
                 {[...Array(6)].map((_, i) => (
                   <PostSkeleton key={i} />
                 ))}
 
-              </div>
+              </MobileCarousel>
 
             ) : error ? (
 
@@ -272,7 +273,7 @@ const Blog = () => {
                 {/* =========================
                     POSTS GRID
                 ========================== */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+                <MobileCarousel label="Blog posts" gridClassName="md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-5 lg:gap-6">
 
                   {posts.map((post, index) => (
                     <PostCard
@@ -282,7 +283,7 @@ const Blog = () => {
                     />
                   ))}
 
-                </div>
+                </MobileCarousel>
 
 
                 {/* =========================
